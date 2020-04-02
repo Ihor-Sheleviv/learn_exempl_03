@@ -1,6 +1,12 @@
-def load_data():
+def load_data(path, filename):
     """
     завантаження даних про наявні товари
-    :return:
+    :param path: шлях до файла
+    :param filename: імя файла
+    :return: [code, goods]
+    code код результату 0-добре goods список товарів
     """
-    return 0
+    code = 0
+    goods = []
+
+    return [code, goods]

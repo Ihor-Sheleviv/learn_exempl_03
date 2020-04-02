@@ -13,7 +13,7 @@ from pay import pay
 def good_automat():
     """ прототип роботи торгового автомата """
     while True:
-        load_data()
+        load_data('.','data.txt')
         display_info()
         act = input_operation()
         calculation()
