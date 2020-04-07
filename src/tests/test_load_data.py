@@ -15,6 +15,7 @@ from load_data import load_data
 
 
 class LoadDataCase(unittest.TestCase):
+    """    тестування зчитування даних про наявні в автоматі товари """
     @classmethod
     def setUpClass(cls):
         """Create test data in files"""
@@ -30,7 +31,7 @@ class LoadDataCase(unittest.TestCase):
             f.write("[['good 1',10.00,20]]")
         with open('.\\data\\fourgoods.txt', 'w') as f:
             f.write("[['good 1',10.00,20],['good 2',12.00,30],"
-                      "['good 3',10.20,25],['good 4',10.04,08],]")
+                      "['good 3',10.20,25],['good 4',10.04, 8],]")
         good25 = [['good '+str(i),10.23+i,5+i] for i in range(1,26)]
         with open('.\\data\\twentyfive.txt', 'w') as f:
             f.write(str(good25))
@@ -51,56 +52,56 @@ class LoadDataCase(unittest.TestCase):
         os.remove('.\\data\\twentysix.txt')
 
     def test_dir(self):
-        """ Вказана тека відсутня """
+        """ 1 Вказана тека відсутня """
         a = load_data('.\\none','none.txt')
         self.assertListEqual(a, [1,[]])
 
     def test_notfile(self):
-        """ Вказаний файл відсутній """
+        """ 2 Вказаний файл відсутній """
         a = load_data('.\\data','none.txt')
         self.assertListEqual(a, [2,[]])
 
     def test_empty_file(self):
-        """ Вказаний файл пустий """
+        """ 3 Вказаний файл пустий """
         a = load_data('.\\data', 'empty.txt')
         self.assertListEqual(a, [3, []])
 
     def test_zero_file(self):
-        """ Вказаний файл має пустий список """
+        """ 4 Вказаний файл має пустий список """
         a = load_data('.\\data', 'zero.txt')
         self.assertListEqual(a, [4, []])
 
     def test_error_list(self):
-        """ Вказаний містить помилковий список (синтаксис) """
+        """ 5 Вказаний містить помилковий список (синтаксис) """
         a = load_data('.\\data', 'listerror.txt')
         self.assertListEqual(a, [5, []])
 
     def test_incorrect_list(self):
-        """ Вказаний містить невірний список (не синтаксис) """
+        """ 6 Вказаний містить невірний список (не синтаксис) """
         a = load_data('.\\data', 'incorrect.txt')
         self.assertListEqual(a, [6, []])
 
     def test_onegood(self):
-        """ містить один товар """
+        """ 0 містить один товар """
         a = load_data('.\\data', 'onegood.txt')
         self.assertListEqual(a, [0, [['good 1',10.00,20]]])
 
     def test_fourgoods(self):
-        """ містить чотири товари """
+        """ 0 містить чотири товари """
         a = load_data('.\\data', 'fourgoods.txt')
         self.assertListEqual(a, [0, [['good 1',10.00,20],['good 2',12.00,30],
                                      ['good 3',10.20,25],['good 4',10.04, 8],]])
 
     def test_twentyfive(self):
-        """ містить 25 товари """
+        """ 0 містить 25 товари """
         good25 = [['good ' + str(i), 10.23 + i, 5 + i] for i in range(1, 26)]
         a = load_data('.\\data', 'twentyfive.txt')
         self.assertListEqual(a, [0, good25])
 
-    def test_twentyfive(self):
-        """ містить 25 товари """
+    def test_twentysix(self):
+        """ 26 містить 26 товари """
         good26 = [['good ' + str(i), 10.23 + i, 5 + i] for i in range(1, 27)]
-        a = load_data('.\\data', 'twentyfive.txt')
+        a = load_data('.\\data', 'twentysix.txt')
         self.assertListEqual(a, [26, good26])
 
 
