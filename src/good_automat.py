@@ -14,7 +14,7 @@ def good_automat():
     """ прототип роботи торгового автомата """
     while True:
         load_data('.','data.txt')
-        display_info()
+        display_info([],[])
         act = input_operation()
         calculation()
         save_data()
