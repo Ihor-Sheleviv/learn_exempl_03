@@ -7,14 +7,14 @@ class DisplaySimpleTestCase(unittest.TestCase):
     """ Тестування простого текстового виводу """
     def setUp(self):
         """ Перенаправимо стандартний вивід у змінну mystdout"""
-        self.maxDiff = 1800
+        self.maxDiff = 2000
         self.old_stdout = sys.stdout
         sys.stdout = self.mystdout = StringIO()
 
     def tearDown(self):
         """ Повернемо стандартний вивід на місце """
-        self.maxDiff = None
         sys.stdout = self.old_stdout
+        self.maxDiff = None
 
     def test_zero(self):
         """ Відсутні товари"""
@@ -34,7 +34,7 @@ class DisplaySimpleTestCase(unittest.TestCase):
                '                                     Cost |                \n' + \
                '                                                           \n'
         goods = [['goods ', 10.0, 5]]
-        a = display_info([],[])
+        a = display_info(goods, [])
         text = self.mystdout.getvalue()
         self.assertMultiLineEqual(text, kadr)
 

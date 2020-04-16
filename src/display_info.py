@@ -11,5 +11,26 @@ def display_info(goods, choice, warning=None):
     :param warning: повідомлення покупцеві (опція)
     :return: """
 
+    kadr = [' N|    goods                | num | price |choice|  value  ']
+    if len(goods) == 0:
+        empty = '  |                         |     |       |      |         \n'*25
+        print(kadr[0])
+        print(empty[:-1])
+        print('                                     Cost |                ')
+        print(' NOT GOODS                                                 ')
+        return 0
+    n = 1
+    for good, price, num in goods:
+        kadr.append(f'{n:2}| {good:<24}|{num:5}|{price:7.2f}|      |         ')
+        n = n + 1
+
+    if n < 25:
+        empty = '  |                         |     |       |      |         \n' * (25-n+1)
+        kadr.append(empty[:-1])
+    kadr.append('                                     Cost |                ')
+    kadr.append('                                                           ')
+
+    for row in kadr:
+        print(row)
 
     return 0
