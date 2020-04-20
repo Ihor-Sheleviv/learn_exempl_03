@@ -11,6 +11,8 @@ def display_info(goods, choice, warning=None):
     :param warning: повідомлення покупцеві (опція)
     :return: """
 
+    d_choice = dict(choice)
+
     kadr = [' N|    goods                | num | price |choice|  value  ']
     if len(goods) == 0:
         empty = '  |                         |     |       |      |         \n'*25
@@ -20,15 +22,28 @@ def display_info(goods, choice, warning=None):
         print(' NOT GOODS                                                 ')
         return 0
     n = 1
+    sum_ch = 0
     for good, price, num in goods:
-        kadr.append(f'{n:2}| {good:<24}|{num:5}|{price:7.2f}|      |         ')
+        num_ch = d_choice.get(good.strip(),0)
+        if  num_ch > 0:
+            val_ch = num_ch * price
+            sum_ch = sum_ch + val_ch
+            kadr.append(f'{n:2}| {good:<24}|{num:5}|{price:7.2f}|{num_ch:6}|{val_ch:9.2f}')
+        else:
+            kadr.append(f'{n:2}| {good:<24}|{num:5}|{price:7.2f}|      |         ')
         n = n + 1
 
     if n < 25:
         empty = '  |                         |     |       |      |         \n' * (25-n+1)
         kadr.append(empty[:-1])
-    kadr.append('                                     Cost |                ')
-    kadr.append('                                                           ')
+    if sum_ch>0:
+        kadr.append(f'                                     Cost |{sum_ch:>16.2f}')
+    else:
+        kadr.append('                                     Cost |                ')
+    if warning is None:
+        kadr.append('                                                           ')
+    else:
+        kadr.append(f' {warning:<58}')
 
     for row in kadr:
         print(row)

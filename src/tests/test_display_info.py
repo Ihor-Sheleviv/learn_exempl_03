@@ -77,7 +77,7 @@ class DisplayChoiceTestCase(unittest.TestCase):
                '                                     Cost |           20.00\n' + \
                '                                                           \n'
         goods = [['goods ', 10.0, 5]]
-        choice = [['goods ', 2]]
+        choice = [['goods', 2]]
         a = display_info(goods, choice)
         text = self.mystdout.getvalue()
         self.assertMultiLineEqual(text, kadr)
@@ -117,11 +117,11 @@ class DisplayChoiceTestCase(unittest.TestCase):
                '23| good 23                 |   28|  33.23|      |         \n' + \
                '24| good 24                 |   29|  34.23|      |         \n' + \
                '25| good 25                 |   28|  35.23|     2|    70.46\n' + \
-               '                                     Cost |        10145.37\n' + \
+               '                                     Cost |        10136.37\n' + \
                ' Thank you for your purchase                               \n'
 
         choice = [['good 1234567890123456789', 1],
-                  ['good 5', 3], ['good 10', 1], ['good 25', 1]]
+                  ['good 5', 3], ['good 10', 1], ['good 25', 2]]
 
         display_info(good25,choice,warning='Thank you for your purchase' )
         text = self.mystdout.getvalue()
