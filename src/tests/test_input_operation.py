@@ -50,8 +50,8 @@ class TestInputUserCase(unittest.TestCase):
         text = self.mystdout.getvalue()
         self.assertListEqual(out, [0, 3, 2])
         self.assertEqual(text, 'Enter item number and key Enter or '
-                               'Enter - continue or zero - break ' 
-                               'Enter quantity of goods and key Enter')
+                               'Enter - continue or zero - break '
+                               'Enter quantity of goods and key Enter ')
 
     def test_choice_error(self):
         """ тестування неправильного вибору номеру"""
@@ -74,7 +74,7 @@ class TestInputUserCase(unittest.TestCase):
         self.assertListEqual(out, [3, 0, 0])
         self.assertEqual(text, 'Enter item number and key Enter or '
                                'Enter - continue or zero - break ' 
-                               'Enter quantity of goods and key Enter')
+                               'Enter quantity of goods and key Enter ')
 
 if __name__ == '__main__':
     unittest.main()
