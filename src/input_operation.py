@@ -9,5 +9,14 @@ def input_operation(dialog = True):
     code = 0
     number = 0
     value = 0
+    if dialog:
+        s_data = input('Enter item number and key Enter or ' +
+                       'Enter - continue or zero - break ')
+        if len(s_data) == 0:
+            return [1, 0, 0]
+        if s_data.isdigit():
+            number = int(s_data)
+            if number == 0:
+                return [-1, 0, 0]
 
     return [code, number, value]
