@@ -15,11 +15,12 @@ def good_automat():
     while True:
         load_data('.','data.txt')
         display_info([],[])
-        act = input_operation()
+        act = input_operation(False)
         calculation()
         save_data()
         save_story()
         pay()
+        break
         if act == 0:
             return 0
 
