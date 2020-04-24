@@ -1,6 +1,11 @@
-def calculation():
+def calculation(goods, choice, code_out):
     """
-    розрахунок при придбанні товару
-    :return:
+    розрахунок при виборі товару
+    :param goods:
+    :param choice:
+    :param code_out:
+    :return: [goods, choice, warn]
     """
-    return 0
+    warn = None
+
+    return [goods, choice, warn]

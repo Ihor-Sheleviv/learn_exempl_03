@@ -16,7 +16,7 @@ def good_automat():
         load_data('.','data.txt')
         display_info([],[])
         act = input_operation(False)
-        calculation()
+        calculation([],[],[])
         save_data()
         save_story()
         pay()
