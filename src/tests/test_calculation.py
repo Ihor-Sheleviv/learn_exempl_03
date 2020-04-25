@@ -33,7 +33,7 @@ class TestCalculationOneCase(unittest.TestCase):
         choice = []
         code_out = [0, 1, 0]
         a = calculation(goods, choice, code_out)
-        self.assertListEqual(a, [[['good 1', 10.00, 2]], [['good 1', 2]], 'Product enter zero'])
+        self.assertListEqual(a, [[['good 1', 10.00, 2]], [], 'Product enter zero'])
 
     def test_one_one_negative(self):
         """ вибрано негативну кількість """
@@ -41,7 +41,7 @@ class TestCalculationOneCase(unittest.TestCase):
         choice = []
         code_out = [0, 1, -2]
         a = calculation(goods, choice, code_out)
-        self.assertListEqual(a, [[['good 1', 10.00, 2]], [['good 1',0]], 'Negative number'])
+        self.assertListEqual(a, [[['good 1', 10.00, 2]], [], 'Negative number'])
 
     def test_one_one_not(self):
         """ вибрано невірний номер товару """
@@ -121,7 +121,7 @@ class TestCalculationMoreCase(unittest.TestCase):
         a = calculation(goods, choice, code_out)
         self.assertListEqual(a, [[['good 1',10.00,18],['good 2',12.00,30],
                                   ['good 3',10.20,24],['good 4',10.04, 8],],
-                                 [['good 1', 3], ['good 3', 1],], None])
+                                 [['good 1', 2], ['good 3', 1],], 'Change the number'])
 
     def test_enter(self):
         """ завершення вибору товару """
@@ -152,9 +152,19 @@ class TestCalculationMoreCase(unittest.TestCase):
         code_out = [0, 1, 0]
         a = calculation(goods, choice, code_out)
         self.assertListEqual(a, [[['good 1',10.00,20],['good 2',12.00,30],
-                                  ['good 3',10.20,25],['good 4',10.04, 8],],
-                                 [['good 3', 1]], None])
+                                  ['good 3',10.20,24],['good 4',10.04, 8],],
+                                 [['good 3', 1]], 'Product enter zero'])
 
+    def test_input_zero(self):
+        """ вказана нульова кількість обраного товару """
+        goods = [['good 1',10.00,17],['good 2',12.00,30],
+                 ['good 3',10.20,24],['good 4',10.04, 8],]
+        choice = [['good 1', 3], ['good 3', 1]]
+        code_out = [0, 2, 0]
+        a = calculation(goods, choice, code_out)
+        self.assertListEqual(a, [[['good 1',10.00,17],['good 2',12.00,30],
+                                  ['good 3',10.20,24],['good 4',10.04, 8],],
+                                 [['good 1', 3], ['good 3', 1]], 'Product enter zero'])
 
 if __name__ == '__main__':
     unittest.main()
