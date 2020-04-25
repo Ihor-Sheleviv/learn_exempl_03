@@ -20,7 +20,7 @@ class TestCalculationOneCase(unittest.TestCase):
         self.assertListEqual(a, [[['good 1',10.00,18]],[['good 1',2]], None])
 
     def test_one_one_less(self):
-        """ один товар один вибрано товару більше ніж є """
+        """ вибрано товару більше ніж є """
         goods = [['good 1', 10.00, 2]]
         choice = []
         code_out = [0, 1, 3]
@@ -28,7 +28,7 @@ class TestCalculationOneCase(unittest.TestCase):
         self.assertListEqual(a, [ [['good 1', 10.00, 0]], [['good 1', 2]], 'Product less' ])
 
     def test_one_one_zero(self):
-        """ один товар вибрано нульову кількість """
+        """ вибрано нульову кількість """
         goods = [['good 1', 10.00, 2]]
         choice = []
         code_out = [0, 1, 0]
@@ -36,7 +36,7 @@ class TestCalculationOneCase(unittest.TestCase):
         self.assertListEqual(a, [[['good 1', 10.00, 2]], [['good 1', 2]], 'Product enter zero'])
 
     def test_one_one_negative(self):
-        """ один товар вибрано негативну кількість """
+        """ вибрано негативну кількість """
         goods = [['good 1', 10.00, 2]]
         choice = []
         code_out = [0, 1, -2]
@@ -44,7 +44,7 @@ class TestCalculationOneCase(unittest.TestCase):
         self.assertListEqual(a, [[['good 1', 10.00, 2]], [['good 1',0]], 'Negative number'])
 
     def test_one_one_not(self):
-        """ один товар вибрано невірний номер товару """
+        """ вибрано невірний номер товару """
         goods = [['good 1', 10.00, 2]]
         choice = []
         code_out = [0, 2, 1]
@@ -60,7 +60,7 @@ class TestCalculationOneCase(unittest.TestCase):
         self.assertListEqual(a, [[['good 1', 10.00, 4]], [['good 1', 1]], 'Change the number'])
 
     def test_one_one_change_less(self):
-        """ зміна кількості вибраного товару забагато """
+        """ зміна кількості, вибраного товару забагато """
         goods = [['good 1', 10.00, 2]]
         choice = [['good 1', 3]]
         code_out = [0, 1, 6]
@@ -89,7 +89,7 @@ class TestCalculationOneCase(unittest.TestCase):
         choice = [['good 1', 3]]
         code_out = [2, 0, 0]
         a = calculation(goods, choice, code_out)
-        self.assertListEqual(a, [[['good 1', 10.00, 5]], [[['good 1', 3]]], 'Error product'])
+        self.assertListEqual(a, [[['good 1', 10.00, 2],], [['good 1', 3],], 'Error product'])
 
     def test_one_nonumber_2(self):
         """ нечислові дані в кількості товару """
@@ -97,7 +97,7 @@ class TestCalculationOneCase(unittest.TestCase):
         choice = [['good 1', 3]]
         code_out = [3, 0, 0]
         a = calculation(goods, choice, code_out)
-        self.assertListEqual(a, [[['good 1', 10.00, 5]], [[['good 1', 3]]], 'Error number'])
+        self.assertListEqual(a, [[['good 1', 10.00, 2],], [['good 1', 3],], 'Error number'])
 
 class TestCalculationMoreCase(unittest.TestCase):
     """  тестуємо вибір декількох товарів  """
