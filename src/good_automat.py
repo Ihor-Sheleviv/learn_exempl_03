@@ -17,7 +17,7 @@ def good_automat():
         display_info([],[])
         act = input_operation(False)
         calculation([],[],[])
-        save_data()
+        save_data([],'','')
         save_story()
         pay()
         break
@@ -28,4 +28,4 @@ def good_automat():
 
 
 if __name__ == "__main__":
-    automat()
+    good_automat()
