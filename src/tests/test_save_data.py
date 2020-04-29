@@ -1,7 +1,10 @@
 import unittest
+from unittest import mock
 import os
 from save_data import save_data, WrongFileData
 
+def fake_write():
+    raise IOError('IO')
 
 PATH_FILE = '.\\data'
 FILE_DATA = 'goods.dat' # файл з товарами
@@ -47,7 +50,7 @@ class TestSaveDataCase(unittest.TestCase):
         # перевіряємо чи є резервний файл і що в ньому
         fb = os.access(PATH_FILE + '\\' + FILE_BK, os.F_OK)
         self.assertTrue(fb, 'Not backup file!')
-        with open(PATH_FILE + '\\' + FILE_BK, 'w') as f:
+        with open(PATH_FILE + '\\' + FILE_BK, 'r') as f:
             self.assertMultiLineEqual(str(goods_old), f.read(), 'BackUp not true')
 
     def test_no_file_data(self):
@@ -56,15 +59,17 @@ class TestSaveDataCase(unittest.TestCase):
         os.remove(PATH_FILE + '\\' + FILE_DATA)
         with self.assertRaises(WrongFileData) as ex:
             a = save_data(goods, PATH_FILE, FILE_DATA)
-        self.assertEqual(ex.message, 'The machine does not work. Contact this admin!')
+            self.assertEqual(ex.message, 'The machine does not work. Contact this admin!')
 
     def test_err_wr_data(self):
         """ коли файл даних не пишеться """
         # вивалюємося? "
-        with open(PATH_FILE + '\\' + FILE_BK,'w') as f:
-            with self.assertRaises(WrongFileData) as ex:
+
+        with self.assertRaises(WrongFileData) as ex:
+            with mock.patch('save_data.my_write',fake_write):
                 a = save_data(goods, PATH_FILE, FILE_DATA)
             self.assertEqual(ex.message, 'The machine does not work. Contact this admin!')
+
 
     def test_err_data_bk(self):
         """ коли не перейменовується в резервний """
@@ -72,7 +77,7 @@ class TestSaveDataCase(unittest.TestCase):
         with open(PATH_FILE + '\\' + FILE_BK,'w') as f:
             with self.assertRaises(WrongFileData) as ex:
                 a = save_data(goods, PATH_FILE, FILE_DATA)
-            self.assertEqual(ex.message, 'The machine does not work. Contact this admin!')
+                self.assertEqual(ex.message, 'The machine does not work. Contact this admin!')
 
     def test_normal(self):
         """ нормальна ситуація """
@@ -85,10 +90,11 @@ class TestSaveDataCase(unittest.TestCase):
         self.assertTrue(fd, 'Not data file!')
         with open(PATH_FILE+'\\'+FILE_DATA, 'r') as f:
             self.assertMultiLineEqual(str(goods), f.read(), 'Data not true')
+
         # перевіряємо чи є резервний файл і що в ньому
         fb = os.access(PATH_FILE + '\\' + FILE_BK, os.F_OK)
         self.assertTrue(fb, 'Not backup file!')
-        with open(PATH_FILE + '\\' + FILE_BK, 'w') as f:
+        with open(PATH_FILE + '\\' + FILE_BK, 'r') as f:
             self.assertMultiLineEqual(str(goods_data), f.read(), 'BackUp not true')
 
 
