@@ -18,7 +18,7 @@ def good_automat():
         act = input_operation(False)
         calculation([],[],[])
         save_data([],'','')
-        save_story()
+        save_story([],'',None)
         pay()
         break
         if act == 0:
