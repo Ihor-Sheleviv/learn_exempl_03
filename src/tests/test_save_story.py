@@ -8,6 +8,9 @@ from save_story import save_story, WrongFileStory
 def fake_write():
     raise IOError('IO')
 
+def fake_copyfile():
+    raise IOError('IO')
+
 
 PATH_FILE = '.\\data'
 FILE_DATA = 'story.dat'  # файл історії
@@ -69,7 +72,8 @@ class TestSaveStoryCase(unittest.TestCase):
         # вивалюємося? "
         with open(PATH_FILE + '\\' + FILE_BK, 'w') as f:
             with self.assertRaises(WrongFileStory) as ex:
-                a = save_story(data, PATH_FILE, FILE_DATA)
+                with mock.patch('save_story.copyfile', fake_copyfile):
+                    a = save_story(data, PATH_FILE, FILE_DATA)
             self.assertEqual(ex.exception.args[0],
                              'The machine does not work. Error 101. Contact this admin!')
 
